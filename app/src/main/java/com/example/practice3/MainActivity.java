@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btn_capture).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CountDownTimer CDT = new CountDownTimer(10*1000, 4*1000) {//10(10*1000)초동안 3초마다 실행
+                CountDownTimer CDT = new CountDownTimer(10*1000, 4*1000) {//10(10*1000)초동안 4초마다 실행
                     @Override
                     public void onTick(long l) {  //반복실행할 구문
                         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
