@@ -13,6 +13,7 @@ import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         PermissionListener permissionListener = new PermissionListener() {
@@ -64,21 +65,37 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btn_capture).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                if(getApplicationContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) { //if(intent.resolveActivity(getPackageManageer())!=null){
-                    File photoFile = null;
-                    try{
-                        photoFile = createImageFile();
-                    } catch (IOException e) {
+                CountDownTimer CDT = new CountDownTimer(10*1000, 3*1000) { //10(10*1000)초동안 3초마다 실행
+                    @Override
+                    public void onTick(long l) {  //반복실행할 구문
+                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        if(getApplicationContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) { //if(intent.resolveActivity(getPackageManageer())!=null){
+                            // Create the File where the photo should go
+                            File photoFile = null;
+                            try {
+                                photoFile = createImageFile();
+                            } catch (IOException e) {
 
+                            }
+
+                            if (photoFile != null) {
+                                photoUri = FileProvider.getUriForFile(getApplicationContext(), getPackageName(), photoFile);
+                                intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+                                startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+                            }
+                        }
+                         System.out.println("촬영되었습니다.");
                     }
 
-                    if(photoFile != null) {
-                        photoUri = FileProvider.getUriForFile(getApplicationContext(), getPackageName(), photoFile);
-                        intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
-                        startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+                    @Override
+                    public void onFinish() {  // 마지막에 실행할 구문
+                        System.out.println("타이머가 종료되었습니다.");
                     }
-                }
+                };
+
+                CDT.start(); //CDT 실행
+                CDT.cancel(); //CDT 종료
+
             }
         });
 
@@ -89,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private File createImageFile() throws IOException {
+        // create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "TEST_" + timeStamp + "_";
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
