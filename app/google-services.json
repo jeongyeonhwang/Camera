@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "235919899002",
+    "firebase_url": "https://python-connection-1692b-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "python-connection-1692b",
+    "storage_bucket": "python-connection-1692b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:235919899002:android:67da53ef1bd52dfe9d3ec3",
+        "android_client_info": {
+          "package_name": "com.example.practice3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "235919899002-mu1ojma1ui9iaug5s21eftab7jl6cfs7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9bE3FAv_Vi2KJywwyaOeeLb8KNi10vrM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "235919899002-mu1ojma1ui9iaug5s21eftab7jl6cfs7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
